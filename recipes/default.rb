@@ -24,7 +24,10 @@ search(:apps) do |app|
       node.run_state[:current_app] = app
       # This is a workaround so the include_recipe works more than once
       # See http://tickets.opscode.com/browse/CHEF-1406
-      node.run_state[:seen_recipes].delete(thing)
+      #
+      # This is deprecated by Chef 11
+      # See http://docs.opscode.com/breaking_changes_chef_11.html#node-run-state-replaced
+      (node.run_state[:seen_recipes] || {}).delete(thing)
       include_recipe thing
     end
   end
